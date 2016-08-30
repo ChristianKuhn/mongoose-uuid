@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var bson = require('bson');
 var util = require('util');
 var uuid = require('node-uuid');
+var isMongooseObject = require('../mongoose/lib/utils').isMongooseObject;
 
 function getter (binary){
   if(!binary) return '';
@@ -63,6 +64,7 @@ SchemaUUID.prototype.checkRequired = function (value) {
  */
 
 SchemaUUID.prototype.cast = function (value) {
+  if(isMongooseObject(value)) return value;
   // If null or undefined
   if (value == null || value === '')
     return value;
